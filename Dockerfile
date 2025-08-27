@@ -3,8 +3,8 @@
 FROM ghcr.io/linuxserver/baseimage-alpine:3.21
 
 # set version label
-ARG BUILD_DATE
-ARG VERSION
+ARG BUILD_DATE=`date`
+ARG VERSION="nightly"
 ARG BEETS_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="aptalca"
@@ -101,7 +101,11 @@ RUN \
     requests \
     requests_oauthlib \
     typing-extensions \
-    unidecode && \
+    unidecode \
+    beets-xtractor \
+    beets[lyrics] \
+    beets[discogs] \
+    beets[beetport] && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   apk del --purge \
